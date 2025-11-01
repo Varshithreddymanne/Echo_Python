@@ -1,32 +1,25 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
-from .auth import router as auth_router
-from .posts import router as posts_router
 import os
+from .auth import router as auth_router
+from .posts import router as post_router
 
-app = FastAPI(title="Echo FastAPI")
-
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app = FastAPI(title= "Echo App")
 
 app.include_router(auth_router)
-app.include_router(posts_router)
+app.include_router(post_router)
 
+# Serve React build
 frontend_path = os.path.join(os.path.dirname(__file__), "../../frontend/build")
 
 if os.path.exists(frontend_path):
-    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
+    app.mount("/static", StaticFiles(directory=os.path.join(frontend_path, "static")), name="static")
 
     @app.get("/{full_path:path}")
     async def serve_react(full_path: str):
-        file_path = os.path.join(frontend_path, full_path)
-        if os.path.exists(file_path):
-            return FileResponse(file_path)
-        return FileResponse(os.path.join(frontend_path, "index.html"))
+        """
+        Serve React frontend for all non-API routes.
+        """
+        index_path = os.path.join(frontend_path, "index.html")
+        return FileResponse(index_path)
