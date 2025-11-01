@@ -7,6 +7,11 @@ import os
 
 app = FastAPI(title="Echo FastAPI")
 
+origins = [
+    "http://localhost:3000",                  
+    "https://echo-frontend.onrender.com"      
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
