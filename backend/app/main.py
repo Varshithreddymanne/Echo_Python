@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-import fastapi.staticfiles from StaticFiles
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from .auth import router as auth_router
 from .posts import router as posts_router
