@@ -3,5 +3,6 @@ uvicorn[standard]
 motor
 python-dotenv
 passlib[bcrypt]
+bcrypt
 python-jose[cryptography]
 pydantic
