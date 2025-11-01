@@ -7,10 +7,6 @@ import os
 
 app = FastAPI(title="Echo FastAPI")
 
-origins = [
-    "http://localhost:3000",                  
-    "https://echo-frontend.onrender.com"      
-]
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,10 +19,14 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(posts_router)
 
-@app.get("/")
-def root():
-    return {"message": "Echo backend running"}
-
 frontend_path = os.path.join(os.path.dirname(__file__), "../../frontend/build")
+
 if os.path.exists(frontend_path):
-    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
+
+    @app.get("/{full_path:path}")
+    async def serve_react(full_path: str):
+        file_path = os.path.join(frontend_path, full_path)
+        if os.path.exists(file_path):
+            return FileResponse(file_path)
+        return FileResponse(os.path.join(frontend_path, "index.html"))
