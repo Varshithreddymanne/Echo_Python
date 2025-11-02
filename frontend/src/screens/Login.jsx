@@ -11,7 +11,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await API.post("api/auth/login", form);
+      const res = await API.post("/auth/login", form);
       const token = res.data.access_token;
       localStorage.setItem("token", token);
       toast({ title: "Logged in", status: "success" });

@@ -9,7 +9,7 @@ export default function Feed() {
 
   const load = async () => {
     try{
-      const res = await API.get("/api/posts");
+      const res = await API.get("/posts");
       console.log("reponse: ", res.data);
       setPosts(res.data);
     }catch (err) {
