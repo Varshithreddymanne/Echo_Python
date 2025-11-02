@@ -4,7 +4,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 import os
 
-from app import auth, posts  
+from . import auth, posts  
 
 app = FastAPI(title="Echo App")
 

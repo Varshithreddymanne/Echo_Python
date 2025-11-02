@@ -1,8 +1,5 @@
 #!/bin/bash
-cd backend
-
-# Activate virtual environment if needed
-# source .venv/bin/activate
+set -e
 
 # Ensure frontend build exists
 if [ ! -d "../frontend/build" ]; then
@@ -14,5 +11,5 @@ if [ ! -d "../frontend/build" ]; then
 fi
 
 # Start FastAPI
-cd app
+echo "Starting FastAPI server..."
 exec uvicorn main:app --host 0.0.0.0 --port $PORT
