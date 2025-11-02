@@ -15,7 +15,6 @@ class PostCreate(BaseModel):
     title: str
     content: str
     username: str
-    liked_by: List[str] = []
 
 class PostOut(BaseModel):
     id: str = Field(..., alias="_id")

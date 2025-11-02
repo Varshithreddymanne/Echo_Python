@@ -15,8 +15,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth.router, prefix="/api/auth")
-app.include_router(posts.router, prefix="/api/posts")
+app.include_router(auth.router, prefix="/auth")
+app.include_router(posts.router, prefix="/posts")
 
 
 frontend_path = os.path.join(os.path.dirname(__file__), "../../frontend/build")
