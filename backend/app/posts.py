@@ -5,7 +5,7 @@ from .utils import verify_token
 from bson import ObjectId
 from datetime import datetime
 
-router = APIRouter(prefix="/posts", tags=["posts"])
+router = APIRouter(tags=["posts"])
 
 def to_json(doc):
     doc = dict(doc)
