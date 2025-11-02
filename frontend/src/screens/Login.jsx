@@ -1,7 +1,7 @@
-// src/pages/Login.jsx
 import { useState } from "react";
 import { VStack, Input, Button, Heading, useToast } from "@chakra-ui/react";
 import API from "../api";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -11,7 +11,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await API.post("/auth/login", form);
+      const res = await API.post("api/auth/login", form);
       const token = res.data.access_token;
       localStorage.setItem("token", token);
       toast({ title: "Logged in", status: "success" });
