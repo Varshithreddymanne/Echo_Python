@@ -1,16 +1,26 @@
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 import os
 from .auth import router as auth_router
 from .posts import router as post_router
+from app import auth, posts
 
 app = FastAPI(title= "Echo App")
 
-app.include_router(auth_router)
-app.include_router(post_router)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# Serve React build
+app.include_router(auth.router, prefix="/api/auth")
+app.include_router(posts.router, prefix="/api/posts")
+
+
 frontend_path = os.path.join(os.path.dirname(__file__), "../../frontend/build")
 
 if os.path.exists(frontend_path):
