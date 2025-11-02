@@ -31,9 +31,10 @@ export default function Feed() {
           <Link to="/register"><Button>Register</Button></Link>
         </Flex>
       </Flex>
-      {posts.map((p) => (
-        <PostCard key={p._id} post={p} refresh={load} />
-      ))}
+      {Array.isArray(posts) && posts.length > 0 ? (
+        posts.map((p) => (
+        <PostCard key={p._id} post={p} refresh={load} />))) : ( <p>No posts yet.</p>)
+      }
     </Box>
   );
 }
