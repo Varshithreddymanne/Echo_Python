@@ -10,6 +10,8 @@ export default function Login() {
   const nav = useNavigate();
 
   const handleLogin = async () => {
+    console.log("API URL:", API.defaults.baseURL);
+    console.log("Form data:", form);
     try {
       const res = await API.post("/auth/login", form);
       const token = res.data.access_token;
@@ -17,6 +19,7 @@ export default function Login() {
       toast({ title: "Logged in", status: "success" });
       nav("/");
     } catch (err) {
+      console.log("Error response:", err.response); 
       toast({ title: err?.response?.data?.detail || "Login failed", status: "error" });
     }
   };

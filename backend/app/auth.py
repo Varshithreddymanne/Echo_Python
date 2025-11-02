@@ -5,7 +5,7 @@ from .models import UserCreate, UserLogin
 from .utils import create_access_token, verify_token
 from typing import Optional
 
-router = APIRouter(tags=["auth"])
+router = APIRouter(prefix="/auth", tags=["auth"])
 pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def get_user_by_email(email: str):
